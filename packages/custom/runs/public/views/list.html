@@ -1,0 +1,21 @@
+<section data-ng-controller="RunsController as vm" data-ng-init="find()">
+  <ul class="runs unstyled">
+    <li data-ng-repeat="run in ::vm.runs">
+      <span>{{run.created | date:'medium'}}</span> /
+      <span>{{run.user.name}}</span>
+      <h2>
+        <a data-ng-href="#!/runs/{{run._id}}">{{run.title}}</a>
+        <span data-ng-if="hasAuthorization(run)">
+          <a class="btn" href="/#!/runs/{{run._id}}/edit">
+            <i class="glyphicon glyphicon-edit"></i>
+          </a>
+          <a class="btn" data-ng-click="remove(run);">
+            <i class="glyphicon glyphicon-trash"></i>
+          </a>
+        </span>
+      </h2>
+      <div>{{run.content}}</div>
+    </li>
+  </ul>
+  <h1 data-ng-hide="!vm.runs || vm.runs.length">No runs yet. <br> Why don't you <a href="/#!/runs/create">Create One</a>?</h1>
+</section>

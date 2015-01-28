@@ -29,6 +29,8 @@ angular.module('mean.articles').controller('ArticlesController', ['$scope', '$st
 
     $scope.remove = function(article) {
       if (article) {
+        console.log(article);
+        console.log(article.$remove);
         article.$remove(function(response) {
           for (var i in $scope.articles) {
             if ($scope.articles[i] === article) {
@@ -62,9 +64,11 @@ angular.module('mean.articles').controller('ArticlesController', ['$scope', '$st
     };
 
     $scope.find = function() {
+      console.log('Querrying Articles');
       Articles.query(function(articles) {
         //$scope.articles = articles;
         vm.articles = articles;
+        console.log(articles);
       });
     };
 
