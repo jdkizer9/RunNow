@@ -1,5 +1,7 @@
 {
   "name": "runs",
   "version": "0.0.1",
-  "dependencies": {}
+  "dependencies": {
+    "angular-google-maps": "latest"
+	}
 }
