@@ -1,4 +1,5 @@
 <section data-ng-controller="RunsController as vm">
+
   <form name="runForm" class="form-horizontal col-md-6" role="form" data-ng-submit="create(runForm.$valid)" novalidate>
     <div class="form-group" ng-class="{ 'has-error' : submitted && runForm.title.$invalid }">
       <label mean-token="'run-create-title'" class="col-md-3 control-label">Title</label>
@@ -19,6 +20,46 @@
         </div>
       </div>
     </div>
+
+    <div class="form-group" ng-class="{ 'has-error' : submitted && runForm.date.$invalid }">
+      <label mean-token="'run-create-date'" for="date" class="col-md-3 control-label">Date</label>
+      <div class="col-md-9">
+        <p class="input-group">
+          <input type="text" class="form-control" datepicker-popup="{{dateFormat}}" ng-model="date" is-open="datePickerOpened" datepicker-options="dateOptions" date-disabled="dateDisabled(date, mode)" ng-required="true" close-text="Close"/>
+          <span class="input-group-btn">
+            <button type="button" class="btn btn-default" ng-click="datePickerToggle($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+          </span>
+          <div ng-show="submitted && runForm.date.$invalid" class="help-block">
+            <p ng-show="runForm.date.$error.required">Date is required</p>
+          </div>
+        </p>
+      </div>
+    </div>
+
+    <div class="form-group" ng-class="{ 'has-error' : submitted && runForm.numInstances.$invalid  }">
+      <div class="row">
+
+        <label mean-token="'run-create-time'" for="time" class="col-md-3 control-label">Time</label>
+          <div class="col-md-4">
+            <timepicker ng-model="time"></timepicker>
+          </div>
+          <div class="col-md-4">
+            <br />
+            Number of instances: <input type="number" class="input-group" ng-model="numInstances" min="1">
+            <br /> Must be greater than 0.
+            <div ng-show="submitted && runForm.numInstances<1" class="help-block">
+              <p ng-show="runForm.numInstances.$error.required">Date is required</p>
+            </div>
+          </div>
+
+        
+      </div>
+    </div>
+
+
+
+    <hr />
+
     <div class="form-group">
       <div class="col-md-offset-3 col-md-9">
         <button mean-token="'run-create-submit'" type="submit" class="btn btn-info">Submit</button>

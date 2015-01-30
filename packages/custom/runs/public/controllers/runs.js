@@ -8,6 +8,33 @@ angular.module('mean.runs').controller('RunsController', ['$scope', '$stateParam
     // $scope.package = {
     //   name: 'runs'
     // };
+    $scope.time = new Date();
+    $scope.numInstances = 1;
+    $scope.datetime = new Date();
+    //$scope.date = new Date();
+
+    $scope.datePickerToggle = function($event) {
+      $event.preventDefault();
+      $event.stopPropagation();
+
+      $scope.datePickerOpened = !$scope.datePickerOpened;
+    };
+
+    $scope.datePickerOpened = false;
+
+    $scope.dateOptions = {
+      formatYear: 'yy',
+      startingDay: 1
+    };
+
+    //Disable weekend selection
+    $scope.dateDisabled = function(date, mode) {
+      return ( date < new Date());
+    };
+
+    $scope.dateFormats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
+    $scope.dateFormat = $scope.dateFormats[0];
+
 
     $scope.hasAuthorization = function(run) {
       if (!run || !run.user) return false;
@@ -16,6 +43,13 @@ angular.module('mean.runs').controller('RunsController', ['$scope', '$stateParam
 
     $scope.create = function(isValid) {
       if (isValid) {
+        this.datetime = new Date(this.date.getFullYear(), 
+                                  this.date.getMonth(),
+                                  this.date.getDate(),
+                                  this.time.getHours(),
+                                  this.time.getMinutes(),
+                                  0);
+        console.log(this.datetime.toString());
         var run = new Runs({
           title: this.title,
           content: this.content
@@ -26,6 +60,8 @@ angular.module('mean.runs').controller('RunsController', ['$scope', '$stateParam
 
         this.title = '';
         this.content = '';
+        this.datetime = new Date();
+        
       } else {
         $scope.submitted = true;
       }
